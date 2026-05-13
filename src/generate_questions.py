@@ -167,8 +167,7 @@ def main():
     parser.add_argument("--count",  type=int, default=None,
                         help="Ограничить количество вопросов")
     parser.add_argument("--seed",   type=int, default=42)
-    parser.add_argument("--print",  dest="print_console", action="store_true",
-                        help="Также вывести вопросы в консоль")
+    parser.add_argument("--print",  dest="print_console", action="store_true")
     args = parser.parse_args()
 
     random.seed(args.seed)
