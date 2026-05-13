@@ -236,4 +236,4 @@ python src/clean_annotated.py
 python src/generate_questions.py
 ```
 
-Итог: `data/questions.json` с готовыми вопросами.# Ontologer — Генератор тестовых вопросов по дискретной математике
+Итог: `data/questions.json` с готовыми вопросами
