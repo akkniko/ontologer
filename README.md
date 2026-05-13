@@ -10,15 +10,17 @@
 ```
 ontologer/
 ├── data/
-│   ├── DM2024.pdf                     # учебнк
+│   ├── DM2024.pdf                     # учебнк(его надо будет скачать с гугл диска(ссылка ниже) и добавить вручную)
 │   ├── DM2024.txt                     # генерируется в main.py
 │   ├── source_items.json              # генерируется в sentence_extractor.py
 │   ├── source_items_annotated.json    # генерируется в auto_annotate.py
+│   ├── source_items_clean.json        # генерируется в clean_annotated.py
 │   └── questions.json                 # генерируется в generate_questions.py
 ├── src/
 │   ├── main.py                        # pdf -> txt
 │   ├── sentence_extractor.py          # txt ->  предложения (source_items.json)
 │   ├── auto_annotate.py               # авторазметка понятий и связей(создание эталонных предложений)
+|   ├── clean-annotated.py             #фильтры, улучшение качества вопросов source_items_annotated
 │   └── generate_questions.py          # соответственно сама генерация вопросов
 ├── requirements.txt
 └── README.md
@@ -153,11 +155,18 @@ python src/auto_annotate.py
 * `ассоциация` — X называется Y / применяется для Y / связан с Y
 
 ---
-
-### Шаг 4 — Генерация вопросов
+### Шаг 4 — Очистка и фильтрация данных
 
 ```bash
-python src/generate_questions.py
+python src/clean_annotated.py
+```
+Результат: `data/source_items_clean.json`
+
+
+### Шаг 5 — Генерация вопросов
+
+```bash
+python src/generate_questions.py --source data/source_items_clean.json
 ```
 
 Результат: `data/questions.json` — 401+ вопрос из 131 записи.
@@ -222,6 +231,7 @@ pip install -r requirements.txt
 python src/main.py
 python src/sentence_extractor.py --pages 67-1337
 python src/auto_annotate.py
+python src/clean_annotated.py
 python src/generate_questions.py
 ```
 
