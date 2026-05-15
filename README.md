@@ -1,4 +1,4 @@
-# Генератор тестовых вопросов по дискретной математике
+# На выходе получится файл questions.jsonНа выходе получится файл questions.jsonГенератор тестовых вопросов по дискретной математике
 
 Проект автоматически извлекает предложения из учебника по дискретной математике(DM2024.pdf в проекте)
 и генерирует вопросы на основе связей между понятиями
@@ -16,16 +16,20 @@ ontologer/
 │   ├── source_items.json              # генерируется в sentence_extractor.py
 │   ├── source_items_annotated.json    # генерируется в auto_annotate.py
 │   ├── source_items_clean.json        # генерируется в clean_annotated.py
+│   ├── questions_clean.json           # почищенные вопросы из questions(на основе train.dataset файла)
 │   └── questions.json                 # генерируется в generate_questions.py
 ├── src/
 │   ├── main.py                        # pdf -> txt
 │   ├── sentence_extractor.py          # txt ->  предложения (source_items.json)
 │   ├── auto_annotate.py               # авторазметка понятий и связей(создание эталонных предложений)
-|   ├── clean-annotated.py             #фильтры, улучшение качества вопросов source_items_annotated
+|   ├── clean_annotated.py             #фильтры, улучшение качества вопросов source_items_annotated 
+|   ├── clean_questions.py             #фильтры, улучшение качества вопросов from generate_questions
 │   └── generate_questions.py          # соответственно сама генерация вопросов
 ├── requirements.txt
 └── README.md
 ```
+
+* *Файл **generate_questions.py** был доработан: теперь он может генерировать вопросы как на основе учебника, так и на основе файлов со структурой как у train_dataset.jspn*
 
 ## Требования
 
@@ -71,14 +75,33 @@ pip install pymupdf==1.23.8
 ```bash
 pip install pdfminer.six
 ```
+
 ### 4) Загрузка учебника
+
 Поскольку DM2024.pdf весит 103 мб, а у гитхаба лимит в 100 мб, вам стоит зайти на гугл диск
 `https://drive.google.com/file/d/1suQFjw6FKnX4OX-VcBEUT7nV-dnohsvO/view?usp=sharing`
 тут скачать этот файл и добавить вручную его в папку data(чтоб было data/DM2024.pdf)
 предпросмотр недоступен, опять же из-за огромного размера, поэтому доступна только опция скачать его
 
+## Запуск(инструкция для работы с файлами в формате train_dataset.json):
 
-## Запуск:
+### Шаг 1: (сгенерировать вопросы)
+
+```python
+python src/generate_questions.py --source data/train_dataset.json
+```
+
+На выходе создатся файл questions.json
+
+### Шаг 2: если сгенерированные вопросы - неудовлетворительного качества - запуск фильтрации вопросов:
+
+```
+python src/clean_questions.py
+```
+
+На выходе получится файл questions_clean.json - результат работы программы с очищенными вопросами
+
+## Запуск(инструкция для работы с DM2024.pdf):
 
 ### Шаг 1: PDF -> текст
 
@@ -156,13 +179,14 @@ python src/auto_annotate.py
 * `ассоциация` — X называется Y / применяется для Y / связан с Y
 
 ---
+
 ### Шаг 4 — Очистка и фильтрация данных
 
 ```bash
 python src/clean_annotated.py
 ```
-Результат: `data/source_items_clean.json`
 
+Результат: `data/source_items_clean.json`
 
 ### Шаг 5 — Генерация вопросов
 
