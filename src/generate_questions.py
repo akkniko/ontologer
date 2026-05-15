@@ -149,7 +149,7 @@ def q2_related_to_c2(r, pool):
 
     """Каким отношением связаны «C1» и «C2»? → relation"""
 def q3_what_relation(r, pool):
-    all_rels   = list(REL_GENITIVE.values())
+    all_rels   = list(set(REL_GENITIVE.values()))
     wrong_rels = [rel for rel in all_rels if rel != REL_GENITIVE[r["relation"]]]
     correct    = REL_GENITIVE[r["relation"]]
     opts       = [correct] + wrong_rels
