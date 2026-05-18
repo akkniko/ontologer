@@ -127,8 +127,8 @@ def main():
     print(f"Загружено вопросов: {len(questions)}")
 
     #дедупликация
-    questions, n_dedup = deduplicate(questions)
-    print(f"  дубликатов вопросов удалено: {n_dedup}")
+    # questions, n_dedup = deduplicate(questions)
+    # print(f"  дубликатов вопросов удалено: {n_dedup}")
 
     #фильтрация
     good, bad = [], []
