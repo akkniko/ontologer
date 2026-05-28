@@ -24,7 +24,8 @@ ontologer/
 │   ├── auto_annotate.py               # авторазметка понятий и связей(создание эталонных предложений)
 |   ├── clean_annotated.py             #фильтры, улучшение качества вопросов source_items_annotated 
 |   ├── clean_questions.py             #фильтры, улучшение качества вопросов from generate_questions
-│   └── generate_questions.py          # соответственно сама генерация вопросов
+│   ├── generate_questions.py          # соответственно сама генерация вопросов
+│   └── generate_open_questions.py     # генерация открытых вопросов с эталонным ответом
 ├── requirements.txt
 └── README.md
 ```
@@ -100,6 +101,15 @@ python src/clean_questions.py
 ```
 
 На выходе получится файл questions_clean.json - результат работы программы с очищенными вопросами
+
+### Открытые вопросы (с развёрнутым ответом)
+
+```bash
+python src/generate_open_questions.py --source data/train_dataset.json
+```
+
+Результат: `data/open_questions_clean.json` (~100+ вопросов).
+
 
 ## Запуск(инструкция для работы с DM2024.pdf):
 
