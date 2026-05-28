@@ -19,6 +19,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #шаблоны, по которм составляются открытые вопросы
+
 TEMPLATES = {
     "generalization": [
         # определение
